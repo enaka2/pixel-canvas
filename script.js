@@ -45,25 +45,28 @@ clear.addEventListener("click", () => {
 })
 
 newGrid.addEventListener("click", () => {
-    const tmp = length
-    length = prompt(
+    const input = prompt(
         "Enter the number of squares per side for the new grid."
     )
 
     // Cancel or empty input: keep the current grid
-    if (length === null || length.trim() === "") {
-        length = tmp
+    if (input === null || input.trim() === "") {
         return
     }
 
-    container.replaceChildren()
+    // Reject non-numeric input
+    const num = Number(input)
 
-    if (length < 0 || length > 100) {
-        length = 100
-    } else {
-        createGrid(100)
+    if (!Number.isInteger(num)) {
+        alert("Please enter a valid whole number.")
+        return
     }
 
+    if (num < 0 || num > 100) {
+        num = 100
+    }
+
+    length = num
     createGrid(length)
 })
 
